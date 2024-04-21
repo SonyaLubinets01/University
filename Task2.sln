@@ -1,25 +1,67 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.9.34723.18
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2", "Task2\Task2.csproj", "{B7236EC3-5945-4E12-90D3-239803C8052D}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B7236EC3-5945-4E12-90D3-239803C8052D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7236EC3-5945-4E12-90D3-239803C8052D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7236EC3-5945-4E12-90D3-239803C8052D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7236EC3-5945-4E12-90D3-239803C8052D}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7884ED47-286C-4AB2-AA16-E298DD5BEFD3}
-	EndGlobalSection
-EndGlobal
+using System;
+
+public class Employee
+{
+    internal string name;
+    private DateTime hiringDate;
+
+    public Employee(string name, DateTime hiringDate)
+    {
+        this.name = name;
+        this.hiringDate = hiringDate;
+    }
+
+    public int Experience()
+    {
+        TimeSpan experienceTimeSpan = DateTime.Now - hiringDate;
+        int experienceYears = (int)(experienceTimeSpan.Days / 365.25);
+        return experienceYears;
+    }
+}
+
+public class Developer : Employee
+{
+    private string programmingLanguage;
+
+    public Developer(string name, DateTime hiringDate, string programmingLanguage) : base(name, hiringDate)
+    {
+        this.programmingLanguage = programmingLanguage;
+    }
+
+    public string GetProgrammingLanguage()
+    {
+        return programmingLanguage;
+    }
+}
+
+public class Tester : Employee
+{
+    private bool isAutomation;
+
+    public Tester(string name, DateTime hiringDate, bool isAutomation) : base(name, hiringDate)
+    {
+        this.isAutomation = isAutomation;
+    }
+
+    public bool IsAutomation()
+    {
+        return isAutomation;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Developer dev = new Developer("Alex Pina", new DateTime(2020, 1, 1), "C#");
+        Tester tester = new Tester("James Bond", new DateTime(2018, 6, 15), true);
+
+        Console.WriteLine("Developer: " + dev.name);
+        Console.WriteLine("Programming Language: " + dev.GetProgrammingLanguage());
+        Console.WriteLine("Experience: " + dev.Experience() + " years");
+
+        Console.WriteLine("\nTester: " + tester.name);
+        Console.WriteLine("Is Automation Tester: " + tester.IsAutomation());
+        Console.WriteLine("Experience: " + tester.Experience() + " years");
+    }
+}
