@@ -17,6 +17,11 @@ public class Employee
         int experienceYears = (int)(experienceTimeSpan.Days / 365.25);
         return experienceYears;
     }
+
+    public void ShowInfo()
+    {
+        Console.WriteLine($"{name} has {Experience()} years of experience");
+    }
 }
 
 public class Developer : Employee
@@ -31,6 +36,12 @@ public class Developer : Employee
     public string GetProgrammingLanguage()
     {
         return programmingLanguage;
+    }
+
+    public new void ShowInfo()
+    {
+        base.ShowInfo();
+        Console.WriteLine($"{name} is {programmingLanguage} programmer");
     }
 }
 
@@ -47,6 +58,13 @@ public class Tester : Employee
     {
         return isAutomation;
     }
+
+    public new void ShowInfo()
+    {
+        base.ShowInfo();
+        string type = isAutomation ? "automated" : "manual";
+        Console.WriteLine($"{name} is {type} tester");
+    }
 }
 
 class Program
@@ -56,12 +74,10 @@ class Program
         Developer dev = new Developer("Alex Pina", new DateTime(2020, 1, 1), "C#");
         Tester tester = new Tester("James Bond", new DateTime(2018, 6, 15), true);
 
-        Console.WriteLine("Developer: " + dev.name);
-        Console.WriteLine("Programming Language: " + dev.GetProgrammingLanguage());
-        Console.WriteLine("Experience: " + dev.Experience() + " years");
+        Console.WriteLine("Developer:");
+        dev.ShowInfo();
 
-        Console.WriteLine("\nTester: " + tester.name);
-        Console.WriteLine("Is Automation Tester: " + tester.IsAutomation());
-        Console.WriteLine("Experience: " + tester.Experience() + " years");
+        Console.WriteLine("\nTester:");
+        tester.ShowInfo();
     }
 }
